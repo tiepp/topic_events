@@ -5,29 +5,27 @@ import 'package:topic_events/topic_events.dart';
 void main() {
   final socket = AnimalSocket();
 
-  TopicEventBroker(socket)
+  TopicEventBroker()
     ..addManager(CatManager())
     ..addManager(DogManager())
-    ..listen();
+    ..setTransport(socket);
 
-  socket.publish(TopicEvent(topicCat, cmdSay, 'something')); // "meow something"
-  socket.publish(TopicEvent(topicDog, cmdSay, 'anything')); // "woof anything"
+  socket.connect();
+  socket.events
+      .add(TopicEvent(topicCat, cmdSay, 'something')); // "meow something"
+  socket.events
+      .add(TopicEvent(topicDog, cmdSay, 'anything')); // "woof anything"
 }
 
 class AnimalSocket extends TopicEventTransport {
-  final events = StreamController<TopicEvent>();
-
   @override
-  void onListen() => events.stream.listen(onIncoming);
-
-  @override
-  void onOutgoing(TopicEvent event) {
-    if (event.cmd == cmdPrint) {
-      print(event.payload);
-    }
+  void onSend(TopicEvent event) {
+    if (event.cmd == cmdPrint) print(event.payload);
   }
 
-  void publish(TopicEvent topicEvent) => events.add(topicEvent);
+  final events = StreamController<TopicEvent>();
+
+  void connect() => events.stream.listen(onReceive);
 }
 
 class CatManager extends TopicManager {
@@ -37,7 +35,7 @@ class CatManager extends TopicManager {
   @override
   void handleEvent(TopicEvent event) {
     if (event.cmd == cmdSay) {
-      writeEvent(cmdPrint, 'meow ${event.payload}');
+      sendEvent(cmdPrint, 'meow ${event.payload}');
     }
   }
 }
@@ -49,7 +47,7 @@ class DogManager extends TopicManager {
   @override
   void handleEvent(TopicEvent event) {
     if (event.cmd == cmdSay) {
-      writeEvent(cmdPrint, 'woof ${event.payload}');
+      sendEvent(cmdPrint, 'woof ${event.payload}');
     }
   }
 }

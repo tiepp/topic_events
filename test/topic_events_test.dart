@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:topic_events/topic_events.dart';
 
 void main() {
-  test('works', () {
+  test('basic use case', () {
     const topA = 'A';
     const topB = 'B';
     const topX = 'X';
@@ -19,7 +19,8 @@ void main() {
     final managerB = TestManager(topB);
 
     TopicEventBroker()
-      ..addManager(managerA)..addManager(managerB)
+      ..addManager(managerA)
+      ..addManager(managerB)
       ..setTransport(transport);
 
     expect(transport.replies, isEmpty);

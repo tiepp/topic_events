@@ -18,14 +18,14 @@ void main() {
 }
 
 class AnimalSocket extends TopicEventTransport {
+  final events = StreamController<TopicEvent>();
+
+  void connect() => events.stream.listen(onReceive);
+
   @override
   void onSend(TopicEvent event) {
     if (event.cmd == cmdPrint) print(event.payload);
   }
-
-  final events = StreamController<TopicEvent>();
-
-  void connect() => events.stream.listen(onReceive);
 }
 
 class CatManager extends TopicManager {

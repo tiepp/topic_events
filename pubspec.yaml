@@ -1,7 +1,9 @@
 name: topic_events
 description: Dead simple event broker
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/tiepp/topic_events.git
+repository: https://github.com/tiepp/topic_events.git
+issue_tracker: https://github.com/tiepp/topic_events/issues
 environment:
   sdk: ">=2.15.1 <3.0.0"
 dev_dependencies:

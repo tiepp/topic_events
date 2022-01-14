@@ -58,7 +58,7 @@ class MySocket extends TopicEventTransport {
 }
 ```
 
-Define one or more  managers:
+Define one or more managers:
 
 ```dart
 class MyManager extends TopicManager {
@@ -95,3 +95,7 @@ socket.connect();
 socket.myEvents.add(TopicEvent('my_topic', 'do', 'something')); // -> MyManager
 socket.myEvents.add(TopicEvent('my_other_topic', 'show', '{"arbitrary": "data"}')); // -> MyOtherManager
 ```
+
+# License
+
+MIT

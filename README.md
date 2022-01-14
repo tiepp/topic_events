@@ -8,7 +8,7 @@ This package helps building event-driven systems by providing a small set of com
 
 Designed for full modularity and easy integration they can be combined to **create topologies** of any shape and complexity. 
 
-Either via **static** or **dynamic configuration** runtime. 
+Either via **static** or **dynamic configuration** at runtime. 
 
 **Bidirectional** communication between transport and managers is supported out of the box. 
 
